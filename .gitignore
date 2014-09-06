@@ -64,6 +64,9 @@ $RECYCLE.BIN/
 *.msm
 *.msp
 
+# backups
+*~
+
 # node-kyujitai
 # =========================
 
