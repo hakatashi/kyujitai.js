@@ -20,6 +20,7 @@ describe('encode', function () {
 
 	it('should correctly convert jukugo kyujitai encoding tasks', function () {
 		kyujitai.encode('連合国軍最高司令官総司令部').should.equal('聯合國軍最高司令官總司令部');
+		kyujitai.encode('米国在勤帝国大使館海軍事務補佐官').should.equal('米國在勤帝國大使館海軍事務輔佐官');
 		kyujitai.encode('日本戦没学生記念会').should.equal('日本戰歿學生記念會');
 	});
 
