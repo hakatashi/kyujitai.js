@@ -1,5 +1,5 @@
 var should = require('should');
-var kyujitai = require('../src');
+var kyujitai = require('../');
 
 describe('encode', function () {
 	it('should correctly convert simple char-to-char kyujitai encoding tasks', function () {

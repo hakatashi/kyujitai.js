@@ -63,3 +63,9 @@ $RECYCLE.BIN/
 *.msi
 *.msm
 *.msp
+
+# node-kyujitai
+# =========================
+
+# data
+data/*.json
