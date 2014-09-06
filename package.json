@@ -1,8 +1,11 @@
 {
   "name": "kyujitai",
   "version": "0.0.1",
+  "engines": {
+      "node": ">=0.10.31"
+  },
   "description": "Utility collections for making Japanese text old-fashioned.",
-  "main": "lib/kyujitai.js",
+  "main": "./lib",
   "scripts": {
     "test": "make test --always-make"
   },
