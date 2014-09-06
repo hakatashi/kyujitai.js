@@ -1,0 +1,29 @@
+{
+  "name": "kyujitai",
+  "version": "0.0.1",
+  "description": "Utility collections for making Japanese text old-fashioned.",
+  "main": "lib/kyujitai.js",
+  "scripts": {
+    "test": "make test --always-make"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hakatashi/node-kyujitai.git"
+  },
+  "keywords": [
+    "kyujitai",
+    "japanese",
+    "text",
+    "conversion"
+  ],
+  "author": "hakatasi",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/hakatashi/node-kyujitai/issues"
+  },
+  "homepage": "https://github.com/hakatashi/node-kyujitai",
+  "devDependencies": {
+    "mocha": "^1.21.4",
+    "should": "^4.0.4"
+  }
+}
