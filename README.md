@@ -1,5 +1,5 @@
-node-kyujitai
-=============
+kyujitai.js
+===========
 
 Utility collections for making Japanese text old-fashioned.
 
