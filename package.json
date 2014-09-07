@@ -7,7 +7,7 @@
   "description": "Utility collections for making Japanese text old-fashioned.",
   "main": "./lib",
   "scripts": {
-    "test": "make test --always-make"
+    "test": "make test"
   },
   "repository": {
     "type": "git",
