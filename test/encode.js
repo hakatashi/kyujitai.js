@@ -11,7 +11,7 @@ describe('encode', function () {
 
 	it('should ignore hiragana and katakana when no options supplied', function () {
 		kyujitai.encode('艦隊これくしょん').should.equal('艦隊これくしょん');
-		kyujitai.encode('ソ連対日宣戦布告').should.equal('ソ連對日宣戰布告');
+		kyujitai.encode('ソ連対日宣戦布告').should.equal('ソ連對日宣戰布吿');
 		kyujitai.encode('我、夜戦に突入す！').should.equal('我、夜戰に突入す！');
 		kyujitai.encode('ガールズ&パンツァー').should.equal('ガールズ&パンツァー');
 		kyujitai.encode('STRIKE WITCHES Operation Victory Arrow').should.equal('STRIKE WITCHES Operation Victory Arrow');
@@ -34,8 +34,8 @@ describe('encode', function () {
 	});
 
 	it('should encode gyokuon-hoso correctly', function () {
-		kyujitai.encode('朕深ク世界ノ大勢ト帝国ノ現状トニ鑑ミ非常ノ措置ヲ以テ時局ヲ収拾セムト欲シ茲ニ忠良ナル爾臣民ニ告ク').should.equal('朕深ク世界ノ大勢ト帝國ノ現狀トニ鑑ミ非常ノ措置ヲ以テ時局ヲ收拾セムト欲シ茲ニ忠良ナル爾臣民ニ告ク');
-		kyujitai.encode('朕ハ帝国政府ヲシテ米英支蘇四国ニ対シ其ノ共同宣言ヲ受諾スル旨通告セシメタリ').should.equal('朕ハ帝國政府ヲシテ米英支蘇四國ニ對シ其ノ共同宣言ヲ受諾スル旨通告セシメタリ');
+		kyujitai.encode('朕深ク世界ノ大勢ト帝国ノ現状トニ鑑ミ非常ノ措置ヲ以テ時局ヲ収拾セムト欲シ茲ニ忠良ナル爾臣民ニ告ク').should.equal('朕深ク世界ノ大勢ト帝國ノ現狀トニ鑑ミ非常ノ措置ヲ以テ時局ヲ收拾セムト欲シ茲ニ忠良ナル爾臣民ニ吿ク');
+		kyujitai.encode('朕ハ帝国政府ヲシテ米英支蘇四国ニ対シ其ノ共同宣言ヲ受諾スル旨通告セシメタリ').should.equal('朕ハ帝國政府ヲシテ米英支蘇四國ニ對シ其ノ共同宣言ヲ受諾スル旨通吿セシメタリ');
 		kyujitai.encode('抑〻帝国臣民ノ康寧ヲ図リ万邦共栄ノ楽ヲ偕ニスルハ皇祖皇宗ノ遺範ニシテ朕ノ拳々措カサル所').should.equal('抑〻帝國臣民ノ康寧ヲ圖リ萬邦共榮ノ樂ヲ偕ニスルハ皇祖皇宗ノ遺範ニシテ朕ノ拳々措カサル所');
 		kyujitai.encode('曩ニ米英二国ニ宣戦セル所以モ亦実ニ帝国ノ自存ト東亜ノ安定トヲ庶幾スルニ出テ').should.equal('曩ニ米英二國ニ宣戰セル所以モ亦實ニ帝國ノ自存ト東亞ノ安定トヲ庶幾スルニ出テ');
 		kyujitai.encode('他国ノ主権ヲ排シ領土ヲ侵スカ如キハ固ヨリ朕カ志ニアラス').should.equal('他國ノ主權ヲ排シ領土ヲ侵スカ如キハ固ヨリ朕カ志ニアラス');
@@ -44,5 +44,5 @@ describe('encode', function () {
 		kyujitai.encode('而モ尚交戦ヲ継続セムカ終ニ我カ民族ノ滅亡ヲ招来スルノミナラス延テ人類ノ文明ヲモ破却スヘシ').should.equal('而モ尙交戰ヲ繼續セムカ終ニ我カ民族ノ滅亡ヲ招來スルノミナラス延テ人類ノ文明ヲモ破却スヘシ');
 		kyujitai.encode('如クムハ朕何ヲ以テカ億兆ノ赤子ヲ保シ皇祖皇宗ノ神霊ニ謝セムヤ').should.equal('如クムハ朕何ヲ以テカ億兆ノ赤子ヲ保シ皇祖皇宗ノ神靈ニ謝セムヤ');
 		kyujitai.encode('是レ朕カ帝国政府ヲシテ共同宣言ニ応セシムルニ至レル所以ナリ').should.equal('是レ朕カ帝國政府ヲシテ共同宣言ニ應セシムルニ至レル所以ナリ');
-	})
+	});
 });
