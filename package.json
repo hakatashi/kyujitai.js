@@ -17,6 +17,9 @@
     "kyujitai",
     "japanese",
     "text",
+    "kanji",
+    "Unicode",
+    "IVS",
     "conversion"
   ],
   "author": "hakatashi <hakatasiloving@gmail.com> (http://hakatashi.com/)",
@@ -29,5 +32,8 @@
     "cson": "^1.6.1",
     "mocha": "^1.21.4",
     "should": "^4.0.4"
+  },
+  "dependencies": {
+    "ivs": "^0.2.1"
   }
 }
