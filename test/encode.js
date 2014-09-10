@@ -11,7 +11,7 @@ describe('encode', function () {
 
 	it('should ignore hiragana and katakana when no options supplied', function () {
 		kyujitai.encode('艦隊これくしょん').should.equal('艦隊これくしょん');
-		kyujitai.encode('ソ連対日宣戦布告').should.equal('ソ連對日宣戰布吿');
+		kyujitai.encode('ソ連対日宣戦布告').should.equal('ソ連對日宣戰布吿');
 		kyujitai.encode('我、夜戦に突入す！').should.equal('我、夜戰に突入す！');
 		kyujitai.encode('ガールズ&パンツァー').should.equal('ガールズ&パンツァー');
 		kyujitai.encode('STRIKE WITCHES Operation Victory Arrow').should.equal('STRIKE WITCHES Operation Victory Arrow');
