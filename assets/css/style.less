@@ -1,5 +1,8 @@
 @base: #fff;
+@fore: #332;
 @innerwidth: 720px;
+
+@font-family: 'ヒラギノ明朝 Pro', 'Hiragino Mincho Pro', 'ヒラギノ明朝 ProN', 'Hiragino Mincho ProN', '游明朝体', 'YuMincho', '游明朝', 'Yu Mincho', 'IPA明朝', 'IPAMincho', 'georgia ref', 'times new roman', serif;
 
 .opacity(@opacity) {
     @opacityPercentage: @opacity * 100;
@@ -15,8 +18,10 @@
 
 html, body {
 	height: 100%;
-	padding: 10px;
 	margin: 0;
+
+	color: @fore;
+	font-family: @font-family;
 }
 
 div#container {
@@ -25,17 +30,18 @@ div#container {
 	width: @innerwidth;
 	min-height: 100%;
 	margin: 0 auto;
+	padding: 20px;
 
 	background-color: fade(@base, 80%);
 }
 
-h1 {
-	padding: 20px 0;
+img#logo {
 	margin: 0;
 	.center;
 	width: 80%;
 }
 
-img {
-	width: 100%;
+// http://stackoverflow.com/questions/12969228/
+.vegas-background {
+	-webkit-transform: translateZ(0);
 }
