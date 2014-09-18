@@ -2,12 +2,15 @@ module.exports = function (grunt) {
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
 		browserify: {
+			options: {
+				ignore: ['zlib']
+			},
 			dev: {
-				src: ['lib/index.js'],
+				src: ['lib/browser.js'],
 				dest: 'dev/kyujitai.js'
 			},
 			dist: {
-				src: ['lib/index.js'],
+				src: ['lib/browser.js'],
 				dest: 'dist/kyujitai.js'
 			},
 		},
@@ -25,18 +28,40 @@ module.exports = function (grunt) {
 				reporter: 'nyan'
 			},
 			src: ['test/**/*.js']
+		},
+		uglify: {
+			dev: {
+				src: 'dev/kyujitai.js',
+				dest: 'dev/kyujitai.min.js'
+			},
+			dist: {
+				src: 'dist/kyujitai.js',
+				dest: 'dist/kyujitai.min.js'
+			}
+		},
+		copy: {
+			dev: {
+				src: 'lib/kyujitai.json.gz',
+				dest: 'dev/kyujitai.json.gz'
+			},
+			dist: {
+				src: 'lib/kyujitai.json.gz',
+				dest: 'dist/kyujitai.json.gz'
+			}
 		}
 	});
 
 	grunt.loadNpmTasks('grunt-browserify');
 	grunt.loadNpmTasks('grunt-mocha-test');
 	grunt.loadNpmTasks('grunt-contrib-compress');
+	grunt.loadNpmTasks('grunt-contrib-uglify');
+	grunt.loadNpmTasks('grunt-contrib-copy');
 
 	grunt.registerTask('default', ['dev']);
 
 	grunt.registerTask('build', ['data', 'compress:data']);
-	grunt.registerTask('dev', ['build', 'browserify:dev']);
-	grunt.registerTask('dist', ['build', 'browserify:dist']);
+	grunt.registerTask('dev', ['build', 'browserify:dev', 'copy:dev', 'uglify:dev']);
+	grunt.registerTask('dist', ['build', 'browserify:dist', 'copy:dist', 'uglify:dist']);
 	grunt.registerTask('test', ['build', 'mochaTest']);
 
 	grunt.registerTask('data', 'build kyujitai.json', function () {
@@ -49,7 +74,5 @@ module.exports = function (grunt) {
 		};
 
 		fs.writeFile('data/kyujitai.json', JSON.stringify(data), done);
-
-
 	});
 };
