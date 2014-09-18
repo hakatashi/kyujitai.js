@@ -52,6 +52,25 @@ module.exports = function (grunt) {
 					{src: 'node_modules/ivs/data/IVD.json.gz', dest: 'dist/IVD.json.gz'}
 				]
 			}
+		},
+		less: {
+			pages: {
+				options: {
+					paths: ['assets/css']
+				},
+				files: {
+					'assets/css/style.css': 'assets/css/style.less'
+				}
+			}
+		},
+		watch: {
+			less: {
+				files: '**/*.less',
+				tasks: ['less'],
+				options: {
+					livereload: true
+				}
+			}
 		}
 	});
 
@@ -60,6 +79,8 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-contrib-compress');
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-contrib-copy');
+	grunt.loadNpmTasks('grunt-contrib-watch');
+	grunt.loadNpmTasks('grunt-contrib-less');
 
 	grunt.registerTask('default', ['dev']);
 
@@ -67,6 +88,9 @@ module.exports = function (grunt) {
 	grunt.registerTask('dev', ['build', 'browserify:dev', 'copy:dev', 'uglify:dev']);
 	grunt.registerTask('dist', ['build', 'browserify:dist', 'copy:dist', 'uglify:dist']);
 	grunt.registerTask('test', ['dev', 'mochaTest']);
+
+	grunt.registerTask('pages', ['less']);
+	grunt.registerTask('watch', ['pages', 'watch']);
 
 	grunt.registerTask('data', 'build kyujitai.json', function () {
 		var done = this.async();
