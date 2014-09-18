@@ -2,12 +2,18 @@
 @fore: #332;
 @innerwidth: 720px;
 
-@font-family: 'ヒラギノ明朝 Pro', 'Hiragino Mincho Pro', 'ヒラギノ明朝 ProN', 'Hiragino Mincho ProN', '游明朝体', 'YuMincho', '游明朝', 'Yu Mincho', 'IPA明朝', 'IPAMincho', 'georgia ref', 'times new roman', serif;
+@font-default: 'ヒラギノ明朝 Pro', 'Hiragino Mincho Pro', 'ヒラギノ明朝 ProN', 'Hiragino Mincho ProN', '游明朝体', 'YuMincho', '游明朝', 'Yu Mincho', 'IPA明朝', 'IPAMincho', 'georgia ref', 'times new roman', serif;
 
 .opacity(@opacity) {
     @opacityPercentage: @opacity * 100;
     opacity: @opacity;
     -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=(@opacityPercentage));
+}
+
+.border-radius(@radius) {
+	-webkit-border-radius: @radius;
+	-moz-border-radius: @radius;
+	border-radius: @radius;
 }
 
 .center {
@@ -16,12 +22,26 @@
 	margin-right: auto;
 }
 
+.pretty {
+	width: 60%;
+}
+
+.bare {
+    margin: 0;
+    padding: 0;
+}
+
+// http://stackoverflow.com/questions/12969228/
+.vegas-background {
+    -webkit-transform: translateZ(0);
+}
+
 html, body {
 	height: 100%;
 	margin: 0;
 
 	color: @fore;
-	font-family: @font-family;
+	font-family: @font-default;
 }
 
 div#container {
@@ -41,7 +61,31 @@ img#logo {
 	width: 80%;
 }
 
-// http://stackoverflow.com/questions/12969228/
-.vegas-background {
-	-webkit-transform: translateZ(0);
+div#demo-wrap {
+    .bare;
+	.center;
+    width: @innerwidth;
+    height: 300px;
+}
+
+textarea {
+	resize: none;
+}
+
+textarea.demo {
+	@pad: 10px;
+	@margin: 10px;
+	@border: 0px;
+
+    margin: @margin;
+	padding: @pad;
+    width: @innerwidth / 2 - @pad * 2 - @margin * 2 - @border * 2;
+	height: 300px;
+
+	border: solid @border lighten(@fore, 50%);
+	.border-radius(5px);
+
+	font: 18px @font-default;
+
+    float: left;
 }
