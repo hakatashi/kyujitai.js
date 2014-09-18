@@ -40,6 +40,6 @@
     "grunt-contrib-copy": "~0.6.0"
   },
   "dependencies": {
-    "ivs": "^0.2.3"
+    "ivs": "^0.3.0"
   }
 }

@@ -41,12 +41,16 @@ module.exports = function (grunt) {
 		},
 		copy: {
 			dev: {
-				src: 'lib/kyujitai.json.gz',
-				dest: 'dev/kyujitai.json.gz'
+				files: [
+					{src: 'lib/kyujitai.json.gz', dest: 'dev/kyujitai.json.gz'},
+					{src: 'node_modules/ivs/data/IVD.json.gz', dest: 'dev/IVD.json.gz'}
+				]
 			},
 			dist: {
-				src: 'lib/kyujitai.json.gz',
-				dest: 'dist/kyujitai.json.gz'
+				files: [
+					{src: 'lib/kyujitai.json.gz', dest: 'dist/kyujitai.json.gz'},
+					{src: 'node_modules/ivs/data/IVD.json.gz', dest: 'dist/IVD.json.gz'}
+				]
 			}
 		}
 	});
@@ -62,7 +66,7 @@ module.exports = function (grunt) {
 	grunt.registerTask('build', ['data', 'compress:data']);
 	grunt.registerTask('dev', ['build', 'browserify:dev', 'copy:dev', 'uglify:dev']);
 	grunt.registerTask('dist', ['build', 'browserify:dist', 'copy:dist', 'uglify:dist']);
-	grunt.registerTask('test', ['build', 'mochaTest']);
+	grunt.registerTask('test', ['dev', 'mochaTest']);
 
 	grunt.registerTask('data', 'build kyujitai.json', function () {
 		var done = this.async();
