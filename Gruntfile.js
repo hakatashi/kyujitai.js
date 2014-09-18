@@ -65,8 +65,11 @@ module.exports = function (grunt) {
 		},
 		watch: {
 			less: {
-				files: '**/*.less',
-				tasks: ['less'],
+				files: ['**/*.less'],
+				tasks: ['less']
+			},
+			livereload: {
+				files: ['**/*.html', 'assets/**/*'],
 				options: {
 					livereload: true
 				}
@@ -90,7 +93,7 @@ module.exports = function (grunt) {
 	grunt.registerTask('test', ['dev', 'mochaTest']);
 
 	grunt.registerTask('pages', ['less']);
-	grunt.registerTask('watch', ['pages', 'watch']);
+	grunt.registerTask('serve', ['pages', 'watch']);
 
 	grunt.registerTask('data', 'build kyujitai.json', function () {
 		var done = this.async();
