@@ -5,18 +5,22 @@
 		<title>旧字体.js</title>
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js" charset="utf-8"></script>
 		<script src="assets/vegas/jquery.vegas.min.js" charset="utf-8"></script>
-		<script src="assets/js/index.js" charset="utf-8"></script>
 		<script src="//localhost:35729/livereload.js" charset="utf-8"></script>
+		<script src="dist/kyujitai.js" charset="utf-8"></script>
+		<script src="assets/js/index.js" charset="utf-8"></script>
 		<link rel="stylesheet" href="assets/vegas/jquery.vegas.min.css" media="screen" charset="utf-8">
 		<link rel="stylesheet" href="assets/css/style.css" media="screen" charset="utf-8">
 	</head>
 	<body>
 		<div id="container">
 			<img id="logo" src="assets/img/logo.png" alt="旧字体.js" />
-			<p class="center pretty">
+			<p class="horizontal-center pretty">
 				kyujitai.jsは、ブラウザやnode.js上で漢字を旧字体に変換する最も強力なJavaScriptライブラリ(予定)です。
 			</p>
 			<div id="demo-wrap">
+				<div id="loading">
+					<p>Loading...</p>
+				</div>
 				<textarea class="demo" id="conversion-from">陸軍としては海軍の提案に反対である</textarea>
 				<textarea class="demo" id="conversion-to"></textarea>
 			</div>

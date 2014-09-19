@@ -1,7 +1,14 @@
-.center {
+.horizontal-center {
   display: block;
   margin-left: auto;
   margin-right: auto;
+}
+.center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: 0 0 -50% 0;
+  transform: translate(-50%, -50%);
 }
 .pretty {
   width: 60%;
@@ -42,16 +49,39 @@ div#demo-wrap {
   margin-left: auto;
   margin-right: auto;
   width: 720px;
-  height: 300px;
+  height: 400px;
+  position: relative;
 }
-textarea {
+div#demo-wrap #loading {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: rgba(51, 51, 34, 0.7);
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  display: table-cell;
+  vertical-align: middle;
+}
+div#demo-wrap #loading p {
+  color: white;
+  font-size: 24px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: 0 0 -50% 0;
+  transform: translate(-50%, -50%);
+}
+div#demo-wrap textarea {
   resize: none;
 }
-textarea.demo {
+div#demo-wrap textarea.demo {
   margin: 10px;
   padding: 10px;
   width: 320px;
-  height: 300px;
+  height: 360px;
   border: solid 0px #bbbb99;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;

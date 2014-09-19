@@ -26,10 +26,18 @@
 	background-size: cover;
 }
 
-.center {
+.horizontal-center {
 	display: block;
 	margin-left: auto;
 	margin-right: auto;
+}
+
+.center {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin: 0 0 -50% 0;
+	transform: translate(-50%, -50%);
 }
 
 .pretty {
@@ -67,43 +75,69 @@ div#container {
 
 img#logo {
 	margin: 0;
-	.center;
+	.horizontal-center;
 	width: 80%;
 }
 
 div#demo-wrap {
+	@innerheight: 400px;
+
 	.bare;
-	.center;
+	.horizontal-center;
 	width: @innerwidth;
-	height: 300px;
-}
+	height: @innerheight;
 
-textarea {
-	resize: none;
-}
+	position: relative;
 
-textarea.demo {
-	@pad: 10px;
-	@margin: 10px;
-	@border: 0px;
+	#loading {
+		width: 100%;
+		height: 100%;
 
-	margin: @margin;
-	padding: @pad;
-	width: @innerwidth / 2 - @pad * 2 - @margin * 2 - @border * 2;
-	height: 300px;
+		position: absolute;
+		top: 0;
+		left: 0;
 
-	border: solid @border lighten(@fore, 50%);
-	.border-radius(5px);
+		background-color: fade(@fore, 70%);
+		.border-radius(10px);
 
-	font: 18px @font-default;
+		display: table-cell;
+		vertical-align: middle;
 
-	float: left;
+		p {
+			color: white;
+			font-size: 24px;
 
-	&#conversion-from {
-		// .background-cover('@{imgdir}/kyuji_background.jpg');
+			.center;
+		}
 	}
 
-	&#conversion-to {
-		// .background-cover('@{imgdir}/shinji_background.jpg');
+	textarea {
+		resize: none;
+	}
+
+	textarea.demo {
+		@pad: 10px;
+		@margin: 10px;
+		@border: 0px;
+
+		margin: @margin;
+		padding: @pad;
+		width: @innerwidth / 2 - @pad * 2 - @margin * 2 - @border * 2;
+		height: @innerheight - @pad * 2 - @margin * 2 - @border * 2;
+
+		border: solid @border lighten(@fore, 50%);
+		.border-radius(5px);
+
+		font: 18px @font-default;
+
+		float: left;
+
+		&#conversion-from {
+			// .background-cover('@{imgdir}/kyuji_background.jpg');
+		}
+
+		&#conversion-to {
+			// .background-cover('@{imgdir}/shinji_background.jpg');
+		}
 	}
 }

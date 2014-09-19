@@ -5,6 +5,9 @@ function preload(arrayOfImages) {
     });
 }
 
+var kyujitai;
+var fromStore, toStore;
+
 $(document).ready(function () {
 	$.vegas('slideshow', {
 		backgrounds: [
@@ -29,5 +32,42 @@ $(document).ready(function () {
 		$logo.attr({src: 'assets/img/logo_hover.png'});
 	}, function () {
 		$logo.attr({src: 'assets/img/logo.png'});
-	})
+	});
+
+	kyujitai = new Kyujitai(function () {
+		$('#loading').hide();
+		$('#conversion-to').val(kyujitai.encode($('#conversion-from').val()));
+		fromStore = $('#conversion-from').val();
+		toStore = $('#conversion-to').val();
+	});
+
+	$('#conversion-from').keydown(encode);
+	$('#conversion-from').keyup(encode);
+	$('#conversion-from').on('paste', function () {
+		setTimeout(encode, 100);
+	});
+
+	$('#conversion-to').keydown(decode);
+	$('#conversion-to').keyup(encode);
+	$('#conversion-to').on('paste', function () {
+		setTimeout(decode, 100);
+	});
 });
+
+function encode() {
+	var fromText = $('#conversion-from').val();
+
+	if (fromStore !== fromText) {
+		$('#conversion-to').val(kyujitai.encode($('#conversion-from').val()));
+		fromStore = fromText;
+	}
+}
+
+function decode() {
+	var toText = $('#conversion-from').val();
+
+	if (toStore !== toText) {
+		$('#conversion-from').val(kyujitai.encode($('#conversion-to').val()));
+		toStore = toText;
+	}
+}
