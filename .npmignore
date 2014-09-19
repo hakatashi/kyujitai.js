@@ -74,3 +74,10 @@ $RECYCLE.BIN/
 # for browser
 dev
 dist
+
+# data source
+data/*.json
+data/*.cson
+
+# calibration
+calibrate
