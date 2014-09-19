@@ -2,18 +2,28 @@
 @fore: #332;
 @innerwidth: 720px;
 
+@imgdir: '../img';
+
 @font-default: 'ヒラギノ明朝 Pro', 'Hiragino Mincho Pro', 'ヒラギノ明朝 ProN', 'Hiragino Mincho ProN', '游明朝体', 'YuMincho', '游明朝', 'Yu Mincho', 'IPA明朝', 'IPAMincho', 'georgia ref', 'times new roman', serif;
 
 .opacity(@opacity) {
-    @opacityPercentage: @opacity * 100;
-    opacity: @opacity;
-    -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=(@opacityPercentage));
+	@opacityPercentage: @opacity * 100;
+	opacity: @opacity;
+	-ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=(@opacityPercentage));
 }
 
 .border-radius(@radius) {
 	-webkit-border-radius: @radius;
 	-moz-border-radius: @radius;
 	border-radius: @radius;
+}
+
+.background-cover(@image) {
+	background-image: url(@image);
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
 }
 
 .center {
@@ -27,13 +37,13 @@
 }
 
 .bare {
-    margin: 0;
-    padding: 0;
+	margin: 0;
+	padding: 0;
 }
 
 // http://stackoverflow.com/questions/12969228/
 .vegas-background {
-    -webkit-transform: translateZ(0);
+	-webkit-transform: translateZ(0);
 }
 
 html, body {
@@ -62,10 +72,10 @@ img#logo {
 }
 
 div#demo-wrap {
-    .bare;
+	.bare;
 	.center;
-    width: @innerwidth;
-    height: 300px;
+	width: @innerwidth;
+	height: 300px;
 }
 
 textarea {
@@ -77,9 +87,9 @@ textarea.demo {
 	@margin: 10px;
 	@border: 0px;
 
-    margin: @margin;
+	margin: @margin;
 	padding: @pad;
-    width: @innerwidth / 2 - @pad * 2 - @margin * 2 - @border * 2;
+	width: @innerwidth / 2 - @pad * 2 - @margin * 2 - @border * 2;
 	height: 300px;
 
 	border: solid @border lighten(@fore, 50%);
@@ -87,5 +97,13 @@ textarea.demo {
 
 	font: 18px @font-default;
 
-    float: left;
+	float: left;
+
+	&#conversion-from {
+		// .background-cover('@{imgdir}/kyuji_background.jpg');
+	}
+
+	&#conversion-to {
+		// .background-cover('@{imgdir}/shinji_background.jpg');
+	}
 }
