@@ -101,9 +101,11 @@ module.exports = function (grunt) {
 		var fs = require('fs');
 		var data = {
 			douon: CSON.parseFileSync('data/douon.cson'),
-			kyuji: CSON.parseFileSync('data/kyuji.cson')
+			kyuji: CSON.parseFileSync('data/kyuji.cson'),
+			exclude: CSON.parseFileSync('data/exclude.cson')
 		};
 
 		fs.writeFile('data/kyujitai.json', JSON.stringify(data), done);
+		grunt.log.writeln('created data/kyujitai.json');
 	});
 };

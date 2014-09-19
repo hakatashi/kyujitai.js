@@ -73,8 +73,8 @@ $RECYCLE.BIN/
 
 # data
 data/*.json
-kyujitai.json.gz
+data/kyujitai.json.gz
+lib/kyujitai.json.gz
 
 # builds
 dev
-dist
