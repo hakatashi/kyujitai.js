@@ -58,7 +58,7 @@ div#demo-wrap #loading {
   position: absolute;
   top: 0;
   left: 0;
-  background-color: rgba(51, 51, 34, 0.7);
+  background-color: rgba(51, 51, 34, 0.6);
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
   border-radius: 10px;
