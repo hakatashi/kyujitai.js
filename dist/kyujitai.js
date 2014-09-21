@@ -4,7 +4,7 @@ Kyujitai = require('../');
 },{"../":2}],2:[function(require,module,exports){
 var http = require('http');
 var https = require('https');
-var zlib = require('zlib');
+var url = require('url');
 var fs = require('fs');
 
 var IVS = require('IVS');
@@ -60,14 +60,25 @@ var fromCodePoint = function (codePoints) {
 };
 
 function Kyujitai(callback) {
-	if (typeof callback !== 'function') {
-		callback = function () {};
+	var options, callback;
+
+	for (var i = 0; i < arguments.length; i++) {
+		var argument = arguments[i];
+
+		if (typeof argument === 'function') {
+			callback = argument;
+		} else if (typeof argument === 'object') {
+			options = argument;
+		}
 	}
 
-	this.initialize(callback);
+	options = options || {};
+	callback = callback || function () {};
+
+	this.initialize(options, callback);
 }
 
-Kyujitai.prototype.initialize = function (callback) {
+Kyujitai.prototype.initialize = function (options, callback) {
 	var kyujitai = this;
 
 	if (kyujitai.data === undefined || kyujitai.IVS === undefined) {
@@ -77,22 +88,24 @@ Kyujitai.prototype.initialize = function (callback) {
 			try {
 				Kyujitai.prototype.data = JSON.parse(dataJSON);
 			} catch (error) {
-				return callback(new Error('kyujitai.json data is broken'));
+				return callback.call(kyujitai, new Error('kyujitai.json data is broken'));
 			}
 
-			kyujitai.compile();
+			Kyujitai.prototype.IVS = new IVS({ivd: options.ivd}, function (error) {
+				if (error) return callback.call(kyujitai, error);
 
-			Kyujitai.prototype.IVS = new IVS(function (error) {
-				callback.call(kyujitai, error);
+				kyujitai.compile();
+				callback.call(kyujitai, null);
 			});
 		}
 
 		if (typeof location !== 'undefined') { // in browser
 			var get = location.protocol === 'https:' ? https.get : http.get;
+			var dataURL = options.kyujitai ? url.resolve(location.href, options.kyujitai) : (__dirname + '/kyujitai.json')
 
-			var request = get(__dirname + '/kyujitai.json.gz', function (response) {
+			var request = get(dataURL, function (response) {
 				if (response.statusCode !== 200) {
-					callback(new Error('Request to kyujitai.json.gzip responded with status code ' + response.statusCode));
+					callback(new Error('Request to ' + dataURL + ' responded with status code ' + response.statusCode));
 				}
 
 				response.on('error', callback);
@@ -100,15 +113,11 @@ Kyujitai.prototype.initialize = function (callback) {
 				response.on('close', onJSONReady);
 			});
 		} else { // in node
-			var gunzip = zlib.createGunzip();
-
-			gunzip.on('data', function (chunk) { dataJSON += chunk; });
-			gunzip.on('error', callback);
-			gunzip.on('finish', onJSONReady);
-
-			var read = fs.createReadStream(__dirname + '/kyujitai.json.gz');
-			read.on('error', callback);
-			read.pipe(gunzip);
+			fs.readFile(__dirname + '/../data/kyujitai.json', function (error, data) {
+				if (error) return callback(error);
+				dataJSON = data;
+				onJSONReady();
+			});
 		}
 	} else {
 		setTimeout(function () {
@@ -140,8 +149,10 @@ Kyujitai.prototype.compile = function () {
 			ivs = fromCodePoint(codePoint);
 		}
 
-		kyuji.encode[entry[0]] = entry[1] + ivs;
-		kyuji.decode[entry[1]] = entry[0];
+		var kyujiIVS = kyujitai.IVS.AJ(entry[1] + ivs)
+
+		kyuji.encode[entry[0]] = kyujiIVS;
+		kyuji.decode[kyujiIVS] = entry[0];
 		regexStringShinji += entry[0];
 		regexStringKyuji += entry[1];
 	});
@@ -156,16 +167,18 @@ Kyujitai.prototype.compile = function () {
 	var douon = Kyujitai.prototype.table.douon; // shorthand
 
 	douon.encode = {};
+	douon.decode = {};
 
 	// make index first
 	kyujitai.data.douon.forEach(function (entry) {
-		var baseChar = entry.new[0];
+		var baseNewChar = entry.new[0];
+		var baseOldChar = entry.old[0];
 
 		entry.new.forEach(function (newChar) {
 			entry.words.forEach(function (word) {
 				// replace new[0] with new[index]
-				if (baseChar !== newChar) {
-					word = word.split(baseChar).join(newChar);
+				if (baseNewChar !== newChar) {
+					word = word.split(baseNewChar).join(newChar);
 				}
 
 				if (douon.encode[word] === undefined) {
@@ -173,20 +186,39 @@ Kyujitai.prototype.compile = function () {
 				}
 			});
 		});
+
+		entry.old.forEach(function (oldChar) {
+			entry.words.forEach(function (word) {
+				word = word.split(baseNewChar).join(oldChar);
+
+				if (douon.decode[word] === undefined) {
+					douon.decode[word] = word;
+				}
+			})
+		})
 	});
 
 	// replase along to douon conversion table
 	kyujitai.data.douon.forEach(function (entry) {
-		var baseChar = entry.new[0];
+		var baseNewChar = entry.new[0];
+		var baseOldChar = entry.old[0];
 
 		entry.new.forEach(function (newChar) {
 			entry.words.forEach(function (word) {
 				// replace new[0] with new[index]
-				if (baseChar !== newChar) {
-					word = word.split(baseChar).join(newChar);
+				if (baseNewChar !== newChar) {
+					word = word.split(baseNewChar).join(newChar);
 				}
 
 				douon.encode[word] = douon.encode[word].split(newChar).join(entry.old[0]);
+			});
+		})
+
+		entry.old.forEach(function (oldChar) {
+			entry.words.forEach(function (word) {
+				word = word.split(baseNewChar).join(oldChar);
+
+				douon.decode[word] = douon.decode[word].split(oldChar).join(entry.new[0]);
 			});
 		})
 	});
@@ -222,12 +254,47 @@ Kyujitai.prototype.encode = function (string, options) {
 	return string;
 };
 
+Kyujitai.prototype.decode = function (string, options) {
+	var from, to;
+	var kyujitai = this;
+
+	string = kyujitai.IVS.forEachKanji(string, function (kanji, ivs) {
+		var appended = kyujitai.IVS.append(kanji + ivs, {
+			resolve: true
+		});
+
+		if (appended.match(kyujitai.table.kyuji.regexKyuji)) {
+			var normalized = kyujitai.IVS.AJ(kyujitai.IVS.append(kanji + ivs, {
+				category: 'AJ',
+				force: true,
+				resolve: true
+			}));
+			var decoded = kyujitai.table.kyuji.decode[normalized];
+
+			if (decoded !== undefined) {
+				return decoded;
+			} else {
+				return kanji + ivs;
+			}
+		} else {
+			return kanji + ivs;
+		}
+	});
+
+	for (from in kyujitai.table.douon.decode) if (kyujitai.table.douon.decode.hasOwnProperty(from)) {
+		to = kyujitai.table.douon.decode[from];
+		string = string.split(from).join(to);
+	}
+
+	return string;
+};
+
 module.exports = Kyujitai;
 
-},{"IVS":3,"fs":4,"http":10,"https":14,"zlib":4}],3:[function(require,module,exports){
+},{"IVS":3,"fs":4,"http":10,"https":14,"url":35}],3:[function(require,module,exports){
 var http = require('http');
 var https = require('https');
-var zlib = require('zlib');
+var url = require('url');
 var fs = require('fs');
 
 if (typeof __dirname === 'undefined') {
@@ -291,15 +358,26 @@ var parseKanji = function (string) {
 	}
 }
 
-function IVS(callback) {
-	if (typeof callback !== 'function') {
-		callback = function () {};
+function IVS() {
+	var options, callback;
+
+	for (var i = 0; i < arguments.length; i++) {
+		var argument = arguments[i];
+
+		if (typeof argument === 'function') {
+			callback = argument;
+		} else if (typeof argument === 'object') {
+			options = argument;
+		}
 	}
 
-	this.initialize(callback);
+	options = options || {};
+	callback = callback || function () {};
+
+	this.initialize(options, callback);
 }
 
-IVS.prototype.initialize = function (callback) {
+IVS.prototype.initialize = function (options, callback) {
 	var ivs = this;
 
 	if (ivs.IVD === undefined) {
@@ -309,7 +387,7 @@ IVS.prototype.initialize = function (callback) {
 			try {
 				IVS.prototype.IVD = JSON.parse(dataJSON);
 			} catch (error) {
-				return callback(new Error('ivd.json data is broken'));
+				return callback(new Error('ivd.json is broken'));
 			}
 
 			callback.call(ivs, null);
@@ -317,10 +395,11 @@ IVS.prototype.initialize = function (callback) {
 
 		if (typeof location !== 'undefined') { // in browser
 			var get = location.protocol === 'https:' ? https.get : http.get;
+			var dataURL = options.ivd ? url.resolve(location.href, options.ivd) : (__dirname + '/ivd.json')
 
-			var request = get(__dirname + '/ivd.json.gz', function (response) {
+			var request = get(dataURL, function (response) {
 				if (response.statusCode !== 200) {
-					callback(new Error('Request to ivd.json.gzip responded with status code ' + response.statusCode));
+					callback(new Error('Request to ' + dataURL + ' responded with status code ' + response.statusCode));
 				}
 
 				response.on('error', callback);
@@ -328,15 +407,11 @@ IVS.prototype.initialize = function (callback) {
 				response.on('close', onJSONReady);
 			});
 		} else { // in node
-			var gunzip = zlib.createGunzip();
-
-			gunzip.on('data', function (chunk) { dataJSON += chunk; });
-			gunzip.on('error', callback);
-			gunzip.on('finish', onJSONReady);
-
-			var read = fs.createReadStream(__dirname + '/data/ivd.json.gz');
-			read.on('error', callback);
-			read.pipe(gunzip);
+			fs.readFile(__dirname + '/data/ivd.json', function (error, data) {
+				if (error) return callback(error);
+				dataJSON = data;
+				onJSONReady();
+			});
 		}
 	} else {
 		setTimeout(function () {
@@ -575,7 +650,7 @@ IVS.prototype.append = function (string, options) {
 
 module.exports = IVS;
 
-},{"fs":4,"http":10,"https":14,"zlib":4}],4:[function(require,module,exports){
+},{"fs":4,"http":10,"https":14,"url":35}],4:[function(require,module,exports){
 
 },{}],5:[function(require,module,exports){
 /*!

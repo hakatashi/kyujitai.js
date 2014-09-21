@@ -14,15 +14,6 @@ module.exports = function (grunt) {
 				dest: 'dist/kyujitai.js'
 			},
 		},
-		compress: {
-			data: {
-				options: {
-					mode: 'gzip'
-				},
-				src: ['data/kyujitai.json'],
-				dest: 'lib/kyujitai.json.gz'
-			}
-		},
 		mochaTest: {
 			options: {
 				reporter: 'nyan'
@@ -42,14 +33,14 @@ module.exports = function (grunt) {
 		copy: {
 			dev: {
 				files: [
-					{src: 'lib/kyujitai.json.gz', dest: 'dev/kyujitai.json.gz'},
-					{src: 'node_modules/ivs/data/IVD.json.gz', dest: 'dev/IVD.json.gz'}
+					{src: 'data/kyujitai.json', dest: 'dev/kyujitai.json'},
+					{src: 'node_modules/ivs/data/IVD.json', dest: 'dev/IVD.json'}
 				]
 			},
 			dist: {
 				files: [
-					{src: 'lib/kyujitai.json.gz', dest: 'dist/kyujitai.json.gz'},
-					{src: 'node_modules/ivs/data/IVD.json.gz', dest: 'dist/IVD.json.gz'}
+					{src: 'data/kyujitai.json', dest: 'dist/kyujitai.json'},
+					{src: 'node_modules/ivs/data/IVD.json', dest: 'dist/IVD.json'}
 				]
 			}
 		},
@@ -74,22 +65,26 @@ module.exports = function (grunt) {
 					livereload: true
 				}
 			}
+		},
+		clean: {
+			dev: ['dev'],
+			dist: ['dist']
 		}
 	});
 
 	grunt.loadNpmTasks('grunt-browserify');
 	grunt.loadNpmTasks('grunt-mocha-test');
-	grunt.loadNpmTasks('grunt-contrib-compress');
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-contrib-copy');
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-contrib-less');
+	grunt.loadNpmTasks('grunt-contrib-clean');
 
 	grunt.registerTask('default', ['dev']);
 
-	grunt.registerTask('build', ['data', 'compress:data']);
-	grunt.registerTask('dev', ['build', 'browserify:dev', 'copy:dev', 'uglify:dev']);
-	grunt.registerTask('dist', ['build', 'browserify:dist', 'copy:dist', 'uglify:dist']);
+	grunt.registerTask('build', ['data']);
+	grunt.registerTask('dev', ['clean:dev', 'build', 'browserify:dev', 'copy:dev', 'uglify:dev']);
+	grunt.registerTask('dist', ['clean:dist', 'build', 'browserify:dist', 'copy:dist', 'uglify:dist']);
 	grunt.registerTask('test', ['dev', 'mochaTest']);
 
 	grunt.registerTask('pages', ['less']);
