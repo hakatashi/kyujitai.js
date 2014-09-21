@@ -64,10 +64,10 @@ function encode() {
 }
 
 function decode() {
-	var toText = $('#conversion-from').val();
+	var toText = $('#conversion-to').val();
 
 	if (toStore !== toText) {
-		$('#conversion-from').val(kyujitai.encode($('#conversion-to').val()));
+		$('#conversion-from').val(kyujitai.decode($('#conversion-to').val()));
 		toStore = toText;
 	}
 }
