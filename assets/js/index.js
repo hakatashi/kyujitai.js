@@ -34,7 +34,7 @@ $(document).ready(function () {
 		$logo.attr({src: 'assets/img/logo.png'});
 	});
 
-	kyujitai = new Kyujitai(function () {
+	kyujitai = new Kyujitai({kyujitai: 'dist/kyujitai.json', IVD: 'dist/IVD.json'}, function () {
 		$('#loading').hide();
 		$('#conversion-to').val(kyujitai.encode($('#conversion-from').val()));
 		fromStore = $('#conversion-from').val();
