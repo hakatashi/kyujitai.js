@@ -48,7 +48,7 @@ $(document).ready(function () {
 	});
 
 	$('#conversion-to').keydown(decode);
-	$('#conversion-to').keyup(encode);
+	$('#conversion-to').keyup(decode);
 	$('#conversion-to').on('paste', function () {
 		setTimeout(decode, 100);
 	});
