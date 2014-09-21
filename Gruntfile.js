@@ -34,13 +34,13 @@ module.exports = function (grunt) {
 			dev: {
 				files: [
 					{src: 'data/kyujitai.json', dest: 'dev/kyujitai.json'},
-					{src: 'node_modules/ivs/data/IVD.json', dest: 'dev/IVD.json'}
+					{src: 'node_modules/ivs/data/ivd.json', dest: 'dev/ivd.json'}
 				]
 			},
 			dist: {
 				files: [
 					{src: 'data/kyujitai.json', dest: 'dist/kyujitai.json'},
-					{src: 'node_modules/ivs/data/IVD.json', dest: 'dist/IVD.json'}
+					{src: 'node_modules/ivs/data/ivd.json', dest: 'dist/ivd.json'}
 				]
 			}
 		},
