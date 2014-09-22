@@ -6,10 +6,23 @@
 
 @font-default: 'ヒラギノ明朝 Pro', 'Hiragino Mincho Pro', 'ヒラギノ明朝 ProN', 'Hiragino Mincho ProN', '游明朝体', 'YuMincho', '游明朝', 'Yu Mincho', 'IPA明朝', 'IPAMincho', 'georgia ref', 'times new roman', serif;
 
-.opacity(@opacity) {
+.ms-opacity(@opacity) {
 	@opacityPercentage: @opacity * 100;
+	-ms-filter: ~"progid:DXImageTransform.Microsoft.Alpha(opacity=@{opacityPercentage})";
+	filter: ~"alpha(opacity=@{opacityPercentage})";
+}
+
+.opacity(@opacity) {
 	opacity: @opacity;
-	-ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=(@opacityPercentage));
+	.ms-opacity(@opacity);
+}
+
+.background-rgba(@color, @alpha) {
+	background-color: fade(@color, @alpha * 100);
+	.lt-ie9 & {
+		background-color: @color;
+		.ms-opacity(@alpha);
+	}
 }
 
 .border-radius(@radius) {
@@ -70,7 +83,7 @@ div#container {
 	margin: 0 auto;
 	padding: 20px;
 
-	background-color: fade(@base, 80%);
+	.background-rgba(@base, 0.8);
 }
 
 img#logo {
@@ -97,7 +110,8 @@ div#demo-wrap {
 		top: 0;
 		left: 0;
 
-		background-color: fade(@fore, 60%);
+		background-color: @fore;
+		.opacity(0.8);
 		.border-radius(10px);
 
 		display: table-cell;
@@ -127,6 +141,8 @@ div#demo-wrap {
 
 		border: solid @border lighten(@fore, 50%);
 		.border-radius(5px);
+
+		background-color: @base;
 
 		font: 18px @font-default;
 

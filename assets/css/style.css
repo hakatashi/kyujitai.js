@@ -35,6 +35,11 @@ div#container {
   padding: 20px;
   background-color: rgba(255, 255, 255, 0.8);
 }
+.lt-ie9 div#container {
+  background-color: #ffffff;
+  -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=80);
+  filter: alpha(opacity=80);
+}
 img#logo {
   margin: 0;
   display: block;
@@ -58,7 +63,10 @@ div#demo-wrap #loading {
   position: absolute;
   top: 0;
   left: 0;
-  background-color: rgba(51, 51, 34, 0.6);
+  background-color: #333322;
+  opacity: 0.8;
+  -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=80);
+  filter: alpha(opacity=80);
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
   border-radius: 10px;
@@ -86,6 +94,7 @@ div#demo-wrap textarea.demo {
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
+  background-color: #ffffff;
   font: 18px 'ヒラギノ明朝 Pro', 'Hiragino Mincho Pro', 'ヒラギノ明朝 ProN', 'Hiragino Mincho ProN', '游明朝体', 'YuMincho', '游明朝', 'Yu Mincho', 'IPA明朝', 'IPAMincho', 'georgia ref', 'times new roman', serif;
   float: left;
 }
