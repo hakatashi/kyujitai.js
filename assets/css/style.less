@@ -4,7 +4,21 @@
 
 @imgdir: '../img';
 
-@font-default: 'ヒラギノ明朝 Pro', 'Hiragino Mincho Pro', 'ヒラギノ明朝 ProN', 'Hiragino Mincho ProN', '游明朝体', 'YuMincho', '游明朝', 'Yu Mincho', 'IPA明朝', 'IPAMincho', 'georgia ref', 'times new roman', serif;
+@font-default:
+	'ヒラギノ明朝 ProN', 'Hiragino Mincho ProN', 'HiraMinProN-W3', 'HiraMinProN-W6',
+	'ヒラギノ明朝 Pro', 'Hiragino Mincho Pro', 'HiraMinPro-W3', 'HiraMinPro-W6',
+	'游明朝体', 'YuMincho',
+	'游明朝', 'Yu Mincho',
+	'HG明朝E', 'HGP明朝E', 'HGS明朝E',
+	'HGMinchoE', 'HGPMinchoE', 'HGSMinchoE',
+	'HG明朝B', 'HGP明朝B', 'HGS明朝B',
+	'HGMinchoB', 'HGPMinchoB', 'HGSMinchoB',
+	'平成明朝', '平成明朝 Std', '平成明朝 Pro',
+	'Heisei Mincho', 'Heisei Mincho Std', 'Heisei Mincho Pro',
+	'IPA明朝', 'IPAMincho',
+	'georgia ref',
+	'times new roman',
+	serif;
 
 .ms-opacity(@opacity) {
 	@opacityPercentage: @opacity * 100;
@@ -62,6 +76,24 @@
 	padding: 0;
 }
 
+.half {
+	width: 50%;
+	float: left;
+}
+
+.clearfix {
+	*zoom: 1;
+
+	&:before, &:after {
+		content: " ";
+		display: table;
+	}
+
+	&:after {
+		clear: both;
+	}
+}
+
 // http://stackoverflow.com/questions/12969228/
 .vegas-background {
 	-webkit-transform: translateZ(0);
@@ -98,7 +130,7 @@ div#demo-wrap {
 	.bare;
 	.horizontal-center;
 	width: @innerwidth;
-	height: @innerheight;
+	height: auto;
 
 	position: relative;
 
@@ -110,8 +142,7 @@ div#demo-wrap {
 		top: 0;
 		left: 0;
 
-		background-color: @fore;
-		.opacity(0.8);
+		.background-rgba(@fore, 0.8);
 		.border-radius(10px);
 
 		display: table-cell;
@@ -123,6 +154,13 @@ div#demo-wrap {
 
 			.center;
 		}
+	}
+
+	label {
+		display: block;
+		text-align: center;
+		font-size: 36px;
+		margin-bottom: -10px;
 	}
 
 	textarea {
@@ -137,7 +175,7 @@ div#demo-wrap {
 		margin: @margin;
 		padding: @pad;
 		width: @innerwidth / 2 - @pad * 2 - @margin * 2 - @border * 2;
-		height: @innerheight - @pad * 2 - @margin * 2 - @border * 2;
+		height: 400px;
 
 		border: solid @border lighten(@fore, 50%);
 		.border-radius(5px);

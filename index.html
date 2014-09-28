@@ -26,12 +26,18 @@
 			<p class="horizontal-center pretty">
 				kyujitai.jsは、ブラウザやnode.js上で漢字を旧字体に変換する最も強力なJavaScriptライブラリ(予定)です。
 			</p>
-			<div id="demo-wrap">
+			<div id="demo-wrap" class="clearfix">
 				<div id="loading">
 					<p>Loading...</p>
 				</div>
-				<textarea class="demo" id="conversion-from">陸軍としては海軍の提案に反対である</textarea>
-				<textarea class="demo" id="conversion-to"></textarea>
+				<div class="half half-left">
+					<label for="conversion-from">新字体</label>
+					<textarea class="demo" id="conversion-from">陸軍としては海軍の提案に反対である</textarea>
+				</div>
+				<div class="half half-right">
+					<label for="conversion-to">旧字体</label>
+					<textarea class="demo" id="conversion-to"></textarea>
+				</div>
 			</div>
 		</div>
 	</body>

@@ -17,6 +17,21 @@
   margin: 0;
   padding: 0;
 }
+.half {
+  width: 50%;
+  float: left;
+}
+.clearfix {
+  *zoom: 1;
+}
+.clearfix:before,
+.clearfix:after {
+  content: " ";
+  display: table;
+}
+.clearfix:after {
+  clear: both;
+}
 .vegas-background {
   -webkit-transform: translateZ(0);
 }
@@ -25,7 +40,7 @@ body {
   height: 100%;
   margin: 0;
   color: #333322;
-  font-family: 'ヒラギノ明朝 Pro', 'Hiragino Mincho Pro', 'ヒラギノ明朝 ProN', 'Hiragino Mincho ProN', '游明朝体', 'YuMincho', '游明朝', 'Yu Mincho', 'IPA明朝', 'IPAMincho', 'georgia ref', 'times new roman', serif;
+  font-family: 'ヒラギノ明朝 ProN', 'Hiragino Mincho ProN', 'HiraMinProN-W3', 'HiraMinProN-W6', 'ヒラギノ明朝 Pro', 'Hiragino Mincho Pro', 'HiraMinPro-W3', 'HiraMinPro-W6', '游明朝体', 'YuMincho', '游明朝', 'Yu Mincho', 'HG明朝E', 'HGP明朝E', 'HGS明朝E', 'HGMinchoE', 'HGPMinchoE', 'HGSMinchoE', 'HG明朝B', 'HGP明朝B', 'HGS明朝B', 'HGMinchoB', 'HGPMinchoB', 'HGSMinchoB', '平成明朝', '平成明朝 Std', '平成明朝 Pro', 'Heisei Mincho', 'Heisei Mincho Std', 'Heisei Mincho Pro', 'IPA明朝', 'IPAMincho', 'georgia ref', 'times new roman', serif;
 }
 div#container {
   display: block;
@@ -54,7 +69,7 @@ div#demo-wrap {
   margin-left: auto;
   margin-right: auto;
   width: 720px;
-  height: 400px;
+  height: auto;
   position: relative;
 }
 div#demo-wrap #loading {
@@ -63,15 +78,17 @@ div#demo-wrap #loading {
   position: absolute;
   top: 0;
   left: 0;
-  background-color: #333322;
-  opacity: 0.8;
-  -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=80);
-  filter: alpha(opacity=80);
+  background-color: rgba(51, 51, 34, 0.8);
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
   border-radius: 10px;
   display: table-cell;
   vertical-align: middle;
+}
+.lt-ie9 div#demo-wrap #loading {
+  background-color: #333322;
+  -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=80);
+  filter: alpha(opacity=80);
 }
 div#demo-wrap #loading p {
   color: white;
@@ -82,6 +99,12 @@ div#demo-wrap #loading p {
   margin: 0 0 -50% 0;
   transform: translate(-50%, -50%);
 }
+div#demo-wrap label {
+  display: block;
+  text-align: center;
+  font-size: 36px;
+  margin-bottom: -10px;
+}
 div#demo-wrap textarea {
   resize: none;
 }
@@ -89,12 +112,12 @@ div#demo-wrap textarea.demo {
   margin: 10px;
   padding: 10px;
   width: 320px;
-  height: 360px;
+  height: 400px;
   border: solid 0px #bbbb99;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
   background-color: #ffffff;
-  font: 18px 'ヒラギノ明朝 Pro', 'Hiragino Mincho Pro', 'ヒラギノ明朝 ProN', 'Hiragino Mincho ProN', '游明朝体', 'YuMincho', '游明朝', 'Yu Mincho', 'IPA明朝', 'IPAMincho', 'georgia ref', 'times new roman', serif;
+  font: 18px 'ヒラギノ明朝 ProN', 'Hiragino Mincho ProN', 'HiraMinProN-W3', 'HiraMinProN-W6', 'ヒラギノ明朝 Pro', 'Hiragino Mincho Pro', 'HiraMinPro-W3', 'HiraMinPro-W6', '游明朝体', 'YuMincho', '游明朝', 'Yu Mincho', 'HG明朝E', 'HGP明朝E', 'HGS明朝E', 'HGMinchoE', 'HGPMinchoE', 'HGSMinchoE', 'HG明朝B', 'HGP明朝B', 'HGS明朝B', 'HGMinchoB', 'HGPMinchoB', 'HGSMinchoB', '平成明朝', '平成明朝 Std', '平成明朝 Pro', 'Heisei Mincho', 'Heisei Mincho Std', 'Heisei Mincho Pro', 'IPA明朝', 'IPAMincho', 'georgia ref', 'times new roman', serif;
   float: left;
 }
