@@ -1,6 +1,8 @@
 kyujitai.js
 ===========
 
+[![Build Status](https://travis-ci.org/hakatashi/kyujitai.js.svg)](https://travis-ci.org/hakatashi/kyujitai.js)
+
 Utility collections for making Japanese text old-fashioned.
 
 ## install
