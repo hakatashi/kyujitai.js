@@ -29,7 +29,7 @@
   },
   "homepage": "https://github.com/hakatashi/node-kyujitai",
   "devDependencies": {
-    "cson": "^1.6.1",
+    "cson": "^3.0.2",
     "grunt": "~0.4.5",
     "grunt-browserify": "~3.0.1",
     "grunt-cli": "^0.1.13",

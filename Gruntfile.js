@@ -95,9 +95,9 @@ module.exports = function (grunt) {
 		var CSON = require('cson');
 		var fs = require('fs');
 		var data = {
-			douon: CSON.parseFileSync('data/douon.cson'),
-			kyuji: CSON.parseFileSync('data/kyuji.cson'),
-			exclude: CSON.parseFileSync('data/exclude.cson')
+			douon: CSON.parseCSONFile('data/douon.cson'),
+			kyuji: CSON.parseCSONFile('data/kyuji.cson'),
+			exclude: CSON.parseCSONFile('data/exclude.cson')
 		};
 
 		fs.writeFile('data/kyujitai.json', JSON.stringify(data), done);
