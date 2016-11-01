@@ -2,7 +2,7 @@
   "name": "kyujitai",
   "version": "1.0.0",
   "engines": {
-    "node": ">=0.10.31"
+    "node": ">= 4"
   },
   "description": "Utility collections for making Japanese text old-fashioned.",
   "main": "./lib",
