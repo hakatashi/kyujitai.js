@@ -1,8 +1,7 @@
 language: node_js
 node_js:
   - node
-  - 8
-  - 6
-  - 4
+dist: bionic
+sudo: false
 notifications:
   webhooks: http://webhook.hakatashi.com/travis
