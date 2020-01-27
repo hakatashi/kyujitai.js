@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/hakatashi/node-kyujitai.git"
+    "url": "https://github.com/hakatashi/kyujitai.js.git"
   },
   "keywords": [
     "kyujitai",
@@ -25,9 +25,9 @@
   "author": "hakatashi <hakatasiloving@gmail.com> (http://hakatashi.com/)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/hakatashi/node-kyujitai/issues"
+    "url": "https://github.com/hakatashi/kyujitai.js/issues"
   },
-  "homepage": "https://github.com/hakatashi/node-kyujitai",
+  "homepage": "https://github.com/hakatashi/kyujitai.js",
   "devDependencies": {
     "cson": "^6.9.0",
     "grunt": "^1.0.4",
